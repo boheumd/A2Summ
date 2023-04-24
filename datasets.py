@@ -173,7 +173,7 @@ class VideoSummDataset(object):
         num_frame = video.shape[0]
         num_sentence = text.shape[0]
         frame_sentence_ratio = int(math.ceil(num_frame / num_sentence))
-        text_cls_label = np.zeros((num_sentence), dtype=np.bool)
+        text_cls_label = np.zeros((num_sentence), dtype=bool)
         for j in range(num_sentence):
             start_frame = j * frame_sentence_ratio
             end_frame = min((j + 1) * frame_sentence_ratio, num_frame)

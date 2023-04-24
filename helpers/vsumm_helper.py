@@ -13,8 +13,8 @@ def f1_score(pred: np.ndarray, test: np.ndarray) -> float:
     :return: F1-score value.
     """
     assert pred.shape == test.shape
-    pred = np.asarray(pred, dtype=np.bool)
-    test = np.asarray(test, dtype=np.bool)
+    pred = np.asarray(pred, dtype=bool)
+    test = np.asarray(test, dtype=bool)
     overlap = (pred & test).sum()
     if overlap == 0:
         return 0.0
@@ -105,7 +105,7 @@ def get_keyshot_summ(pred: np.ndarray,
     # sum(nfps[packed])
 
     # Get key-shot based summary
-    summary = np.zeros(n_frames, dtype=np.bool)
+    summary = np.zeros(n_frames, dtype=bool)
     for seg_idx in packed:
         first, last = cps[seg_idx]
         summary[first:last + 1] = True
@@ -156,7 +156,7 @@ def get_summ_diversity(pred_summ: np.ndarray,
     :return: Diversity value.
     """
     assert len(pred_summ) == len(features)
-    pred_summ = np.asarray(pred_summ, dtype=np.bool)
+    pred_summ = np.asarray(pred_summ, dtype=bool)
     pos_features = features[pred_summ]
 
     if len(pos_features) < 2:
@@ -181,8 +181,8 @@ def get_summ_f1score(pred_summ: np.ndarray,
     :param eval_metric: Evaluation method. Choose from (max, avg).
     :return: F1-score value.
     """
-    pred_summ = np.asarray(pred_summ, dtype=np.bool)
-    test_summ = np.asarray(test_summ, dtype=np.bool)
+    pred_summ = np.asarray(pred_summ, dtype=bool)
+    test_summ = np.asarray(test_summ, dtype=bool)
     _, n_frames = test_summ.shape
 
     if pred_summ.size > n_frames:

@@ -188,7 +188,7 @@ def calc_video_cos(video, gt_summ, keyframe_index_list, mask_video_summ=None, da
 
         # select the largest-K pairwise cosine simialrity (K = num_key_frame)
         num_key_frame = len(keyframe_index_list[i])
-        match_mat = np.zeros((num_key_frame, num_key_frame), dtype=np.long)
+        match_mat = np.zeros((num_key_frame, num_key_frame), dtype=int)
         sorted_index = np.dstack(np.unravel_index(np.argsort(-sim_mat.ravel()), sim_mat.shape))[0] #[N*N, 2]
         select_key_frame_count = 0
         for j in range(sorted_index.shape[0]):

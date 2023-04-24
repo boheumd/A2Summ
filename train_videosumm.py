@@ -156,15 +156,15 @@ def train_videosumm(args, split, split_idx):
             
             logger.info(f'[Eval]  Epoch: {epoch+1}/{args.max_epoch} F-score: {val_fscore:.4f}/{max_val_fscore:.4f}\n\n')
 
-            args.writer.add_scalar(f'Val/max_fscore', max_val_fscore, epoch+1)
-            args.writer.add_scalar(f'Val/fscore', val_fscore, epoch+1)
+            args.writer.add_scalar(f'Split{split_idx}/Val/max_fscore', max_val_fscore, epoch+1)
+            args.writer.add_scalar(f'Split{split_idx}/Val/fscore', val_fscore, epoch+1)
 
-        args.writer.add_scalar(f'Train/loss', stats.loss, epoch+1)
-        args.writer.add_scalar(f'Train/cls_loss', stats.cls_loss, epoch+1)
-        args.writer.add_scalar(f'Train/loc_loss', stats.loc_loss, epoch+1)
-        args.writer.add_scalar(f'Train/ctr_loss', stats.ctr_loss, epoch+1)
-        args.writer.add_scalar(f'Train/inter_contrastive_loss', stats.inter_contrastive_loss, epoch+1)
-        args.writer.add_scalar(f'Train/intra_contrastive_loss', stats.intra_contrastive_loss, epoch+1)
+        args.writer.add_scalar(f'Split{split_idx}/Train/loss', stats.loss, epoch+1)
+        args.writer.add_scalar(f'Split{split_idx}/Train/cls_loss', stats.cls_loss, epoch+1)
+        args.writer.add_scalar(f'Split{split_idx}/Train/loc_loss', stats.loc_loss, epoch+1)
+        args.writer.add_scalar(f'Split{split_idx}/Train/ctr_loss', stats.ctr_loss, epoch+1)
+        args.writer.add_scalar(f'Split{split_idx}/Train/inter_contrastive_loss', stats.inter_contrastive_loss, epoch+1)
+        args.writer.add_scalar(f'Split{split_idx}/Train/intra_contrastive_loss', stats.intra_contrastive_loss, epoch+1)
 
     return max_val_fscore, best_val_epoch, max_train_fscore
 
@@ -218,7 +218,7 @@ def evaluate_videosumm(model, val_loader, args, epoch=None):
                                                             video_label=video_cls_label, text_label=text_cls_label, 
                                                             video_to_text_mask_list=video_to_text_mask_list, 
                                                             text_to_video_mask_list=text_to_video_mask_list) #[B, T], [B, T, 2]
-            mask_video_bool = mask_video.cpu().numpy().astype(np.bool)
+            mask_video_bool = mask_video.cpu().numpy().astype(bool)
             
 
             for i in range(batch_size):

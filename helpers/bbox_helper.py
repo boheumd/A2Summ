@@ -33,7 +33,7 @@ def cw2lr(bbox_cw: np.ndarray) -> np.ndarray:
 
 def seq2bbox(sequence: np.ndarray) -> np.ndarray:
     """Generate CW bbox from binary sequence mask"""
-    sequence = np.asarray(sequence, dtype=np.bool)
+    sequence = np.asarray(sequence, dtype=bool)
     selected_indices, = np.where(sequence == 1)
 
     bboxes_lr = []
@@ -142,7 +142,7 @@ def get_ctr_label(target: np.ndarray,
     :param eps: Small floating value to prevent division by zero.
     :return: Centerness label. Sized [N].
     """
-    target = np.asarray(target, dtype=np.bool)
+    target = np.asarray(target, dtype=bool)
     ctr_label = np.zeros(target.shape, dtype=np.float32)
 
     offset_left, offset_right = offset[target, 0], offset[target, 1]
